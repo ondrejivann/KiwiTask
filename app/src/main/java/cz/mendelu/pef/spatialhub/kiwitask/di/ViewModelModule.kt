@@ -7,6 +7,6 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel {
-        TopLocationViewModel(androidApplication(), get())
+        TopLocationViewModel(androidApplication(), get(), get())
     }
 }

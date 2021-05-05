@@ -57,6 +57,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
+    // Data Store
+    implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
+    implementation "androidx.datastore:datastore:1.0.0-beta01"
+
     // Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
