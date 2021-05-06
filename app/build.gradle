@@ -50,6 +50,9 @@ dependencies {
     // CardView
     implementation "androidx.cardview:cardview:$card_version"
 
+    // Circle Indicator
+    implementation "me.relex:circleindicator:$circle_indicator_version"
+
     // Coin
     implementation "io.coil-kt:coil:$coil_version"
 
@@ -60,6 +63,9 @@ dependencies {
     // Data Store
     implementation "androidx.datastore:datastore-preferences:1.0.0-beta01"
     implementation "androidx.datastore:datastore:1.0.0-beta01"
+
+    // Gravity Snap Helper
+    implementation "com.github.rubensousa:gravitysnaphelper:$gravity_snap_helper_version"
 
     // Koin
     implementation "org.koin:koin-android:$koin_version"

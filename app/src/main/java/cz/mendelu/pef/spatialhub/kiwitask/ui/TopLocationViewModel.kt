@@ -39,7 +39,7 @@ class TopLocationViewModel(
                         search.currency?.let { currency ->
                             dataStoreRepository.setCurrency(currency)
                         }
-                        val flightList = search.flights.slice(0..5)
+                        val flightList = search.flights.slice(0..4)
                         localFlightsRepository.insertFlights(flightList)
                     }
                 } else {
