@@ -1,5 +1,6 @@
 package cz.mendelu.pef.spatialhub.kiwitask.di
 
+import com.google.gson.GsonBuilder
 import cz.mendelu.pef.spatialhub.kiwitask.api.TopLocationsAPI
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -36,6 +37,10 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder().baseUrl(API_URL)
         .client(okHttpClient)
         .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(
+            GsonConverterFactory.create(
+                GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+            )
+        )
         .build()
 }

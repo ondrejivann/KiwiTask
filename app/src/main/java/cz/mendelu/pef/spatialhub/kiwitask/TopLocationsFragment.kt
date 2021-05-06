@@ -1,13 +1,17 @@
 package cz.mendelu.pef.spatialhub.kiwitask
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import cz.mendelu.pef.spatialhub.kiwitask.databinding.FragmentTopLocationsBinding
+import cz.mendelu.pef.spatialhub.kiwitask.models.Result
 import cz.mendelu.pef.spatialhub.kiwitask.ui.TopLocationViewModel
+import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TopLocationsFragment : Fragment() {
@@ -28,6 +32,23 @@ class TopLocationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        lifecycleScope.launchWhenStarted {
+            viewModel.flights.collect { result ->
+                when (result) {
+                    is Result.Empty -> {
+                        Log.d("TopLocationsFragmentLog", "Empty")
+                    }
+                    is Result.Error -> {
+                        Log.d("TopLocationsFragmentLog", "Error")
+                    }
+                    Result.Loading -> {
+                        Log.d("TopLocationsFragmentLog", "Loading")
+                    }
+                    is Result.Success -> {
+                        Log.d("TopLocationsFragmentLog", result.data.toString())
+                    }
+                }
+            }
+        }
     }
 }

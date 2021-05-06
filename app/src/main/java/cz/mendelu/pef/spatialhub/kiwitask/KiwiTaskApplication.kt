@@ -1,6 +1,7 @@
 package cz.mendelu.pef.spatialhub.kiwitask
 
 import android.app.Application
+import cz.mendelu.pef.spatialhub.kiwitask.di.databaseModule
 import cz.mendelu.pef.spatialhub.kiwitask.di.networkModule
 import cz.mendelu.pef.spatialhub.kiwitask.di.repositoryModule
 import cz.mendelu.pef.spatialhub.kiwitask.di.viewModelModule
@@ -14,7 +15,7 @@ class KiwiTaskApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@KiwiTaskApplication)
-            modules(listOf(networkModule, repositoryModule, viewModelModule))
+            modules(listOf(databaseModule, networkModule, repositoryModule, viewModelModule))
         }
     }
 }

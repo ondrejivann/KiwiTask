@@ -5,16 +5,15 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import cz.mendelu.pef.spatialhub.kiwitask.api.TopLocationsAPI
-import cz.mendelu.pef.spatialhub.kiwitask.repository.AppPreferencesRepository
-import cz.mendelu.pef.spatialhub.kiwitask.repository.DefaultAppPreferencesRepository
-import cz.mendelu.pef.spatialhub.kiwitask.repository.DefaultLocationRepository
-import cz.mendelu.pef.spatialhub.kiwitask.repository.LocationRepository
+import cz.mendelu.pef.spatialhub.kiwitask.database.FlightsDao
+import cz.mendelu.pef.spatialhub.kiwitask.repository.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val repositoryModule = module {
     single { provideLocationRepository(get()) }
     single { provideDataStoreRepository(androidContext().dataStore) }
+    single { provideLocalFlightsRepository(get()) }
 }
 
 fun provideLocationRepository(locationAPI: TopLocationsAPI): LocationRepository {
@@ -23,6 +22,10 @@ fun provideLocationRepository(locationAPI: TopLocationsAPI): LocationRepository 
 
 fun provideDataStoreRepository(dataStore: DataStore<Preferences>): AppPreferencesRepository {
     return DefaultAppPreferencesRepository(dataStore)
+}
+
+fun provideLocalFlightsRepository(flightsDao: FlightsDao): LocalFlightsRepository {
+    return DefaultLocalFlightsRepository(flightsDao)
 }
 
 private const val APP_DATA_STORE_NAME = "app_data_store"
