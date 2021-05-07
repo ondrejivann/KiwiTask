@@ -39,7 +39,7 @@ class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(Flig
                 with(flightBinding) {
                     destination = flight.cityTo
                     price = flight.price.toString()
-                    imageView.load("https://images.kiwi.com/photos/600x330/london_gb.jpg") {
+                    imageView.load("https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A") {
                         crossfade(true)
                         crossfade(500)
                         scale(Scale.FIT)

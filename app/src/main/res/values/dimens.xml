@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="large_indentation">24dp</dimen>
+    <dimen name="basic_indentation">16dp</dimen>
+    <dimen name="half_indentation">8dp</dimen>
+</resources>

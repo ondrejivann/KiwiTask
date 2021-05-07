@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/left_circle"
+        app:layout_constraintEnd_toStartOf="@+id/right_circle"
+        android:background="@color/app_background_light"
+        android:layout_width="0dp"
+        android:layout_height="1dp"/>
+
+    <View
+        android:id="@+id/left_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/half_circle_left"
+        android:layout_width="16dp"
+        android:layout_height="32dp"/>
+
+    <View
+        android:id="@+id/right_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/half_circle_right"
+        android:layout_width="16dp"
+        android:layout_height="32dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

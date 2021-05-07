@@ -13,19 +13,4 @@ class FlightListItemView @JvmOverloads constructor(
 
     private val binding = FlightListItemLayoutBinding.inflate(LayoutInflater.from(context))
 
-    init {
-
-    }
-
-    fun setDestinationText(destination: String) {
-        binding.destinationTextView.text = destination
-    }
-
-    fun setPriceText(price: String) {
-        binding.priceTextView.text = price
-    }
-
-    fun setImage(url: String) {
-        binding.imageView.load(url)
-    }
 }
