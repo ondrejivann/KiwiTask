@@ -109,7 +109,7 @@
                         android:id="@+id/from_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="from" />
+                        android:text="@string/from" />
 
                     <TextView
                         style="@style/text_card_content_big_style"
@@ -153,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="to"
+                        android:text="@string/to"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -194,7 +194,7 @@
                     android:id="@+id/departure_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="departure"
+                    android:text="@string/departure"
                     style="@style/text_card_description_style"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -214,7 +214,7 @@
                     android:id="@+id/airlines_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="airlines"
+                    android:text="@string/airlines"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/departure_content" />
 
@@ -232,7 +232,7 @@
                     android:id="@+id/arrival_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="arrival"
+                    android:text="@string/arrival"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -251,7 +251,7 @@
                     android:id="@+id/seats_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="avail. seats"
+                    android:text="@string/available_seats"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/arrival_content" />
 
