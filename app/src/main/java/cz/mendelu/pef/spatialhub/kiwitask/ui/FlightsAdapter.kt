@@ -3,11 +3,13 @@ package cz.mendelu.pef.spatialhub.kiwitask.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
 import cz.mendelu.pef.spatialhub.kiwitask.databinding.FlightListItemLayoutBinding
+import cz.mendelu.pef.spatialhub.kiwitask.databinding.StopoverListItemBinding
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
 
 class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(FlightDiffCallback) {
@@ -35,16 +37,37 @@ class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(Flig
 
     inner class FlightViewHolder constructor(private val flightBinding: FlightListItemLayoutBinding) :
         RecyclerView.ViewHolder(flightBinding.root) {
-            fun bind(flight: Flight) {
-                with(flightBinding) {
-                    destination = flight.cityTo
-                    price = flight.price.toString()
-                    imageView.load("https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A") {
-                        crossfade(true)
-                        crossfade(500)
-                        scale(Scale.FIT)
-                    }
+        fun bind(flight: Flight) {
+            with(flightBinding) {
+                destination = flight.cityTo
+                price = flight.price.toString()
+                imageView.load("https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A") {
+                    crossfade(true)
+                    crossfade(500)
+                    scale(Scale.FIT)
                 }
+                stopoverRecyclerView.layoutManager = LinearLayoutManager(flightBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                stopoverRecyclerView.setHasFixedSize(true)
+                stopoverRecyclerView.adapter = StopoverAdapter(listOf("ad", "as"))
             }
         }
+    }
+
+    inner class StopoverAdapter(private val stopovers: List<String>) :
+        RecyclerView.Adapter<StopoverAdapter.StopoverViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StopoverViewHolder {
+            val itemBinding =
+                StopoverListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return StopoverViewHolder(itemBinding)
+        }
+
+        override fun onBindViewHolder(holder: StopoverViewHolder, position: Int) {}
+
+        override fun getItemCount(): Int = stopovers.size
+
+        inner class StopoverViewHolder constructor(private val stopoverBinding: StopoverListItemBinding) :
+            RecyclerView.ViewHolder(stopoverBinding.root) {
+        }
+    }
 }
