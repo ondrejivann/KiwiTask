@@ -1,10 +1,12 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
 import cz.mendelu.pef.spatialhub.kiwitask.models.Result
+import cz.mendelu.pef.spatialhub.kiwitask.others.Constants.NUMBER_OF_FLIGHTS_OFFER
 import cz.mendelu.pef.spatialhub.kiwitask.others.DateTimeUtils
 import cz.mendelu.pef.spatialhub.kiwitask.repository.AppPreferencesRepository
 import cz.mendelu.pef.spatialhub.kiwitask.repository.LocalFlightsRepository
@@ -32,7 +34,7 @@ class TopLocationViewModel(
     private fun fetchFlights() = viewModelScope.launch {
         dataStoreRepository.lastSearchTime.collect { lastSearch ->
             if (DateTimeUtils.isYesterdayOrOlder(lastSearch)) {
-                val result = locationRepository.getLocations()
+                val result = locationRepository.getLocations(DateTimeUtils.getTomorrowDateAsQueryString(), DateTimeUtils.getNextWeekDateAsQueryString())
                 if (result.isSuccessful) {
                     result.body()?.let { search ->
                         dataStoreRepository.setLastSearchTime(Calendar.getInstance().timeInMillis)
@@ -43,7 +45,7 @@ class TopLocationViewModel(
                         if (!currentFlights.isNullOrEmpty()) {
                             //val flightList = search.flights.slice(0..4)
                             //Log.d("TopLocationsLog", flightList.toString())
-                            localFlightsRepository.insertFlights(search.flights.slice(0..4))
+                            localFlightsRepository.insertFlights(search.flights.take(NUMBER_OF_FLIGHTS_OFFER))
                         } else {
                             localFlightsRepository.insertFlights(
                                 getUniqueFlights( currentFlights, search.flights)
@@ -71,7 +73,7 @@ class TopLocationViewModel(
     ): List<Flight> {
         val newUniqueFlights: MutableList<Flight> = mutableListOf()
         var index = 0
-        while (newUniqueFlights.size < 5 && index < newFlights.size) {
+        while (newUniqueFlights.size < NUMBER_OF_FLIGHTS_OFFER && index < newFlights.size) {
             var addNewFlight = true
             currentFlights.forEach { currentFlight ->
                 if (newFlights[index].apiId == currentFlight.apiId || newFlights[index].destinationCity == currentFlight.destinationCity) {
