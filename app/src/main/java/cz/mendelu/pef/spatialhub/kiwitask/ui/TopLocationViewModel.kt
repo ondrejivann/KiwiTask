@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
 import cz.mendelu.pef.spatialhub.kiwitask.models.Result
+import cz.mendelu.pef.spatialhub.kiwitask.models.Route
 import cz.mendelu.pef.spatialhub.kiwitask.others.DateTimeUtils
 import cz.mendelu.pef.spatialhub.kiwitask.repository.AppPreferencesRepository
 import cz.mendelu.pef.spatialhub.kiwitask.repository.LocalFlightsRepository
