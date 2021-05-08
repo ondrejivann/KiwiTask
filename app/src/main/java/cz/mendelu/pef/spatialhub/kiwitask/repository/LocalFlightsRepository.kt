@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocalFlightsRepository {
     fun getAllFlights() : Flow<List<Flight>>
+    suspend fun getAllFlightsOnce(): List<Flight>
     suspend fun insertFlights(flights: List<Flight>)
 }

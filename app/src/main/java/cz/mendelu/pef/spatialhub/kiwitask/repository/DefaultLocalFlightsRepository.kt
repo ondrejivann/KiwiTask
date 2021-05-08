@@ -8,6 +8,8 @@ class DefaultLocalFlightsRepository(private val flightsDao: FlightsDao) : LocalF
 
     override fun getAllFlights(): Flow<List<Flight>> = flightsDao.getAllFlights()
 
+    override suspend fun getAllFlightsOnce(): List<Flight> = flightsDao.getAllFlightsOnce()
+
     override suspend fun insertFlights(flights: List<Flight>) {
         flightsDao.clearAndInsertFlights(flights)
     }

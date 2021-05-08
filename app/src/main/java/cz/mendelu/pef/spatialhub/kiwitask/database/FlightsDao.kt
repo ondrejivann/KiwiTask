@@ -10,6 +10,9 @@ interface FlightsDao {
     @Query("SELECT * FROM Flights")
     fun getAllFlights(): Flow<List<Flight>>
 
+    @Query("SELECT * FROM Flights")
+    suspend fun getAllFlightsOnce(): List<Flight>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFlights(flights: List<Flight>)
 

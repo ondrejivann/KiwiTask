@@ -1,12 +1,10 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
 import cz.mendelu.pef.spatialhub.kiwitask.models.Result
-import cz.mendelu.pef.spatialhub.kiwitask.models.Route
 import cz.mendelu.pef.spatialhub.kiwitask.others.DateTimeUtils
 import cz.mendelu.pef.spatialhub.kiwitask.repository.AppPreferencesRepository
 import cz.mendelu.pef.spatialhub.kiwitask.repository.LocalFlightsRepository
@@ -41,9 +39,16 @@ class TopLocationViewModel(
                         search.currency?.let { currency ->
                             dataStoreRepository.setCurrency(currency)
                         }
-                        val flightList = search.flights.slice(0..4)
-                        Log.d("TopLocationsLog", flightList.toString())
-                        localFlightsRepository.insertFlights(flightList)
+                        val currentFlights = localFlightsRepository.getAllFlightsOnce()
+                        if (!currentFlights.isNullOrEmpty()) {
+                            //val flightList = search.flights.slice(0..4)
+                            //Log.d("TopLocationsLog", flightList.toString())
+                            localFlightsRepository.insertFlights(search.flights.slice(0..4))
+                        } else {
+                            localFlightsRepository.insertFlights(
+                                getUniqueFlights( currentFlights, search.flights)
+                            )
+                        }
                     }
                 } else {
                     _flights.value = Result.Error(result.message())
@@ -58,5 +63,26 @@ class TopLocationViewModel(
                 }
             }
         }
+    }
+
+    private fun getUniqueFlights(
+        currentFlights: List<Flight>,
+        newFlights: List<Flight>
+    ): List<Flight> {
+        val newUniqueFlights: MutableList<Flight> = mutableListOf()
+        var index = 0
+        while (newUniqueFlights.size < 5 && index < newFlights.size) {
+            var addNewFlight = true
+            currentFlights.forEach { currentFlight ->
+                if (newFlights[index].apiId == currentFlight.apiId || newFlights[index].destinationCity == currentFlight.destinationCity) {
+                    addNewFlight = false
+                }
+            }
+            if (addNewFlight) {
+                newUniqueFlights.add(newFlights[index])
+            }
+            index++
+        }
+        return newUniqueFlights
     }
 }
