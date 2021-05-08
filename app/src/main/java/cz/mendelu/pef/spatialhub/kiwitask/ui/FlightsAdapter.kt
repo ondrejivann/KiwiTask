@@ -1,6 +1,8 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,9 +10,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
+import cz.mendelu.pef.spatialhub.kiwitask.R
 import cz.mendelu.pef.spatialhub.kiwitask.databinding.FlightListItemLayoutBinding
 import cz.mendelu.pef.spatialhub.kiwitask.databinding.StopoverListItemBinding
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
+import cz.mendelu.pef.spatialhub.kiwitask.others.DateTimeUtils
+import cz.mendelu.pef.spatialhub.kiwitask.others.NumberUtils
 
 class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(FlightDiffCallback) {
 
@@ -39,16 +44,41 @@ class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(Flig
         RecyclerView.ViewHolder(flightBinding.root) {
         fun bind(flight: Flight) {
             with(flightBinding) {
-                destination = flight.cityTo
-                price = flight.price.toString()
+                destination = flightBinding.root.context.getString(R.string.destination_city_country, flight.destinationCity, flight.countryDestination?.name)
+                flight.price?.let {
+                    price = NumberUtils.getCurrencyString(it)
+                }
+                cityFrom = flight.cityCodeFrom
+                cityTo = flight.cityCodeTo
+                duration = flight.flyDuration
+                flight.dTime?.let {
+                    date = DateTimeUtils.getDateFromUnix(it)
+                    departure = DateTimeUtils.getTimeFromUnix(it)
+                }
+                flight.aTime?.let {
+                    arrival = DateTimeUtils.getTimeFromUnix(it)
+                }
+                flight.airlines?.let { airlinesList ->
+                    airlines = TextUtils.join(", ", airlinesList)
+                }
+                seats = flight.availability?.seats?.toString()
                 imageView.load("https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A") {
                     crossfade(true)
                     crossfade(500)
                     scale(Scale.FIT)
                 }
-                stopoverRecyclerView.layoutManager = LinearLayoutManager(flightBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
-                stopoverRecyclerView.setHasFixedSize(true)
-                stopoverRecyclerView.adapter = StopoverAdapter(listOf("ad", "as"))
+                flight.routes?.let { routes ->
+                    if (routes.size < 2) {
+                        stopoverRecyclerView.visibility = View.GONE
+                        noStopoverContent.visibility = View.VISIBLE
+                    } else {
+                        stopoverRecyclerView.visibility = View.VISIBLE
+                        noStopoverContent.visibility = View.GONE
+                        stopoverRecyclerView.layoutManager = LinearLayoutManager(flightBinding.root.context, LinearLayoutManager.HORIZONTAL, false)
+                        stopoverRecyclerView.setHasFixedSize(true)
+                        stopoverRecyclerView.adapter = StopoverAdapter(listOf("ad", "as"))
+                    }
+                }
             }
         }
     }

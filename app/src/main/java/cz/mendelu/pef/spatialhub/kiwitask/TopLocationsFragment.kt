@@ -55,7 +55,7 @@ class TopLocationsFragment : Fragment() {
                         flightAdapter.apply {
                             submitList(result.data)
                         }
-                        Log.d("TopLocationsFragmentLog", result.data.toString())
+                        Log.d("TopLocationsLog", result.data.toString())
                     }
                 }
             }

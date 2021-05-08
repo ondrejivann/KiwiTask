@@ -7,4 +7,6 @@
     <string name="airlines">airlines</string>
     <string name="arrival">arrival</string>
     <string name="available_seats">avail. seats</string>
+    <string name="no_stopovers">No stopovers</string>
+    <string name="destination_city_country">%1$s, %2$s</string>
 </resources>

@@ -1,6 +1,7 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
@@ -40,6 +41,7 @@ class TopLocationViewModel(
                             dataStoreRepository.setCurrency(currency)
                         }
                         val flightList = search.flights.slice(0..4)
+                        Log.d("TopLocationsLog", flightList.toString())
                         localFlightsRepository.insertFlights(flightList)
                     }
                 } else {

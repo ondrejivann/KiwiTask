@@ -4,13 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="destination"
             type="String" />
-
         <variable
             name="price"
+            type="String" />
+        <variable
+            name="date"
+            type="String" />
+        <variable
+            name="cityFrom"
+            type="String" />
+        <variable
+            name="cityTo"
+            type="String" />
+        <variable
+            name="duration"
+            type="String" />
+        <variable
+            name="departure"
+            type="String" />
+        <variable
+            name="arrival"
+            type="String" />
+        <variable
+            name="airlines"
+            type="String" />
+        <variable
+            name="seats"
             type="String" />
     </data>
 
@@ -70,7 +92,7 @@
                     android:textStyle="bold"
                     style="@style/text_card_on_image_big_style"
                     android:layout_margin="16dp"
-                    android:text="25.05.2021"
+                    android:text="@{date}"
                     android:textAlignment="textEnd"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -116,7 +138,7 @@
                         android:id="@+id/from_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRG" />
+                        android:text="@{cityFrom}" />
 
                 </LinearLayout>
 
@@ -133,7 +155,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/gray"
                         android:layout_gravity="center_horizontal"
-                        android:text="2h 10m" />
+                        android:text="@{duration}" />
 
                     <include layout="@layout/flight_airplane_decoration" />
 
@@ -163,7 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="PRG"
+                        android:text="@{cityTo}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/to_description" />
 
@@ -171,13 +193,26 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginHorizontal="@dimen/large_indentation"
-                android:id="@+id/stopover_recycler_view"
-                tools:listitem="@layout/stopover_list_item"
-                android:layout_gravity="center_horizontal"
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginHorizontal="@dimen/large_indentation"
+                    android:id="@+id/stopover_recycler_view"
+                    tools:listitem="@layout/stopover_list_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/no_stopover_content"
+                    android:layout_width="wrap_content"
+                    android:text="@string/no_stopovers"
+                    android:textColor="@color/gray"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
             <include
                 layout="@layout/flight_layout_divider"
@@ -204,7 +239,7 @@
                     android:id="@+id/departure_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="09:30"
+                    android:text="@{departure}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/departure_description" />
 
@@ -223,7 +258,7 @@
                     android:id="@+id/airlines_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="FR, W6"
+                    android:text="@{airlines}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/airlines_description" />
 
@@ -241,7 +276,7 @@
                     android:id="@+id/arrival_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11:40"
+                    android:text="@{arrival}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/arrival_description" />
 
@@ -260,7 +295,7 @@
                     android:id="@+id/seats_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4"
+                    android:text="@{seats}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/seats_description" />
 
