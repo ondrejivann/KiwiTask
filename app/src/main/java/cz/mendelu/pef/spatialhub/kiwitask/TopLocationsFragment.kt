@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -44,19 +47,30 @@ class TopLocationsFragment : Fragment() {
             viewModel.flights.collect { result ->
                 when (result) {
                     is Result.Empty -> {
-                        Log.d("TopLocationsFragmentLog", "Empty")
+                        showContent(false)
+                        showLoading(false)
+                        showPlaceholder(true)
+                        setPlaceholderContent(R.string.airlines, R.drawable.empty_placeholder)
                     }
                     is Result.Error -> {
-                        Log.d("TopLocationsFragmentLog", "Error")
+                        showContent(false)
+                        showLoading(false)
+                        showPlaceholder(true)
+                        setPlaceholderContent(R.string.airlines, R.drawable.error_placeholder)
                     }
                     Result.Loading -> {
-                        Log.d("TopLocationsFragmentLog", "Loading")
+                        showContent(false)
+                        showPlaceholder(false)
+                        showLoading(true)
                     }
                     is Result.Success -> {
+                        showLoading(false)
+                        showPlaceholder(false)
+                        showContent(true)
                         flightAdapter.apply {
                             submitList(result.data)
                         }
-                        Log.d("TopLocationsLog", result.data.toString())
+                        //Log.d("TopLocationsLog", result.data.toString())
                     }
                 }
             }
@@ -71,6 +85,47 @@ class TopLocationsFragment : Fragment() {
             flightAdapter = FlightsAdapter()
             recyclerView.adapter = flightAdapter.apply {
                 registerAdapterDataObserver(circleIndicator.adapterDataObserver)
+            }
+        }
+    }
+
+    private fun showContent(show: Boolean) {
+        with(binding) {
+            if (show) {
+                recyclerView.visibility = View.VISIBLE
+                circleIndicator.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.GONE
+                circleIndicator.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun showPlaceholder(show: Boolean) {
+        with(binding) {
+            if (show) {
+                imagePlaceholder.visibility = View.VISIBLE
+                placeholderDescription.visibility = View.VISIBLE
+            } else {
+                imagePlaceholder.visibility = View.GONE
+                placeholderDescription.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun setPlaceholderContent(@StringRes descriptionResId: Int, @DrawableRes drawableResId: Int) {
+        with(binding) {
+            placeholderDescription.text = getString(descriptionResId)
+            imagePlaceholder.setImageDrawable(ContextCompat.getDrawable(requireContext(), drawableResId))
+        }
+    }
+
+    private fun showLoading(show: Boolean) {
+        with(binding) {
+            if (show) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
             }
         }
     }

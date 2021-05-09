@@ -9,4 +9,11 @@
     <string name="available_seats">avail. seats</string>
     <string name="no_stopovers">No stopovers</string>
     <string name="destination_city_country">%1$s, %2$s</string>
+
+    <string name="next">next</string>
+    <string name="finish">finish</string>
+
+    <string name="on_boarding_part_one">Are you tired of lockdown?</string>
+    <string name="on_boarding_part_two">Fly with us on a trip!</string>
+    <string name="on_boarding_part_three">We have 5 TOP offers for you every day!</string>
 </resources>

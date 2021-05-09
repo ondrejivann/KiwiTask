@@ -6,6 +6,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="45"
-        app:tint="@color/purple_200"
+        app:tint="@color/app_green"
         android:src="@drawable/ic_baseline_flight_16" />
 </layout>

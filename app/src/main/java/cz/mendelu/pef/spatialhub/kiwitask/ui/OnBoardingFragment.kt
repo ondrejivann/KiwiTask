@@ -1,10 +1,9 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -14,7 +13,7 @@ import cz.mendelu.pef.spatialhub.kiwitask.databinding.FragmentOnBoardingBinding
 import cz.mendelu.pef.spatialhub.kiwitask.others.UIUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OnBoardingFragment: Fragment() {
+class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnBoardingBinding
     private val viewModel: OnBoardingViewModel by viewModel()
@@ -22,15 +21,15 @@ class OnBoardingFragment: Fragment() {
     private val onBoardingAdapter = OnBoardingViewPagerAdapter(
         listOf(
             OnBoardingSlide(
-                "Nebaví tě Lockdown?",
+                R.string.on_boarding_part_one,
                 R.raw.homeoffice_animation_light
             ),
             OnBoardingSlide(
-                "Poleť s námi na výlet!",
+                R.string.on_boarding_part_two,
                 R.raw.fly_animation_light
             ),
             OnBoardingSlide(
-                "Každý den pro tebe máme 5 TOP nabídek kam ihned vyrazit!",
+                R.string.on_boarding_part_three,
                 R.raw.ticket_animation
             )
         )
@@ -55,16 +54,17 @@ class OnBoardingFragment: Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     if (position == onBoardingAdapter.itemCount - 1) {
-                        binding.buttonNext.text = "Finish"
+                        binding.buttonNext.text = getString(R.string.finish)
                         binding.buttonNext.setOnClickListener {
-                            //viewModel.showOnBoarding(false)
-                            requireView().findNavController().navigate(R.id.action_onBoardingFragment_to_topLocationsFragment)
+                            viewModel.showOnBoarding(false)
+                            requireView().findNavController()
+                                .navigate(R.id.action_onBoardingFragment_to_topLocationsFragment)
                         }
                     } else {
-                        binding.buttonNext.text = "Next"
+                        binding.buttonNext.text = getString(R.string.next)
                         binding.buttonNext.setOnClickListener {
                             binding.viewPager.currentItem.let {
-                                binding.viewPager.setCurrentItem(it+1, true)
+                                binding.viewPager.setCurrentItem(it + 1, true)
                             }
                         }
                     }
