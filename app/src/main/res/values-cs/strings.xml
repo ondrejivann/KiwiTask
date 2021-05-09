@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kiwi Task</string>
+    <string name="to">do</string>
+    <string name="from">z</string>
+    <string name="departure">odlet</string>
+    <string name="airlines">aerolinky</string>
+    <string name="arrival">přílet</string>
+    <string name="available_seats">volná místa</string>
+    <string name="no_stopovers">Bez mezipřistání</string>
+    <string name="next">další</string>
+    <string name="finish">ukončit</string>
+    <string name="on_boarding_part_one">Už tě nebaví lockdown?</string>
+    <string name="on_boarding_part_two">Poleť s námi na výlet!</string>
+    <string name="on_boarding_part_three">Každý den pro tebe máme 5 top nabídek!</string>
+    <string name="placeholder_text_empty">Nic tu není!</string>
+    <string name="placeholder_text_error">Omlouváme se, něco se pokazilo</string>
+</resources>
