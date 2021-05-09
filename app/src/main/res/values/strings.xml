@@ -16,4 +16,7 @@
     <string name="on_boarding_part_one">Are you tired of lockdown?</string>
     <string name="on_boarding_part_two">Fly with us on a trip!</string>
     <string name="on_boarding_part_three">We have 5 TOP offers for you every day!</string>
+
+    <string name="placeholder_text_empty">There is nothing here</string>
+    <string name="placeholder_text_error">Sorry, something went wrong</string>
 </resources>

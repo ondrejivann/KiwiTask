@@ -1,7 +1,6 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
@@ -31,29 +30,38 @@ class TopLocationViewModel(
         fetchFlights()
     }
 
-    private fun fetchFlights() = viewModelScope.launch {
+    fun fetchFlights() = viewModelScope.launch {
         dataStoreRepository.lastSearchTime.collect { lastSearch ->
             if (DateTimeUtils.isYesterdayOrOlder(lastSearch)) {
-                val result = locationRepository.getLocations(DateTimeUtils.getTomorrowDateAsQueryString(), DateTimeUtils.getNextWeekDateAsQueryString())
-                if (result.isSuccessful) {
-                    result.body()?.let { search ->
-                        dataStoreRepository.setLastSearchTime(Calendar.getInstance().timeInMillis)
-                        search.currency?.let { currency ->
-                            dataStoreRepository.setCurrency(currency)
+                try {
+                    val result = locationRepository.getLocations(
+                        DateTimeUtils.getTomorrowDateAsQueryString(),
+                        DateTimeUtils.getNextWeekDateAsQueryString()
+                    )
+                    if (result.isSuccessful) {
+                        result.body()?.let { search ->
+                            dataStoreRepository.setLastSearchTime(Calendar.getInstance().timeInMillis)
+                            search.currency?.let { currency ->
+                                dataStoreRepository.setCurrency(currency)
+                            }
+                            val currentFlights = localFlightsRepository.getAllFlightsOnce()
+                            if (!currentFlights.isNullOrEmpty()) {
+                                localFlightsRepository.insertFlights(
+                                    search.flights.take(
+                                        NUMBER_OF_FLIGHTS_OFFER
+                                    )
+                                )
+                            } else {
+                                localFlightsRepository.insertFlights(
+                                    getUniqueFlights(currentFlights, search.flights)
+                                )
+                            }
                         }
-                        val currentFlights = localFlightsRepository.getAllFlightsOnce()
-                        if (!currentFlights.isNullOrEmpty()) {
-                            //val flightList = search.flights.slice(0..4)
-                            //Log.d("TopLocationsLog", flightList.toString())
-                            localFlightsRepository.insertFlights(search.flights.take(NUMBER_OF_FLIGHTS_OFFER))
-                        } else {
-                            localFlightsRepository.insertFlights(
-                                getUniqueFlights( currentFlights, search.flights)
-                            )
-                        }
+                    } else {
+                        _flights.value = Result.Error(result.message())
                     }
-                } else {
-                    _flights.value = Result.Error(result.message())
+                } catch (e: Exception) {
+                    _flights.value = Result.Error(e.message ?: "")
                 }
             } else {
                 localFlightsRepository.getAllFlights().collect { flightsList ->

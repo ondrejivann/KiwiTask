@@ -20,6 +20,7 @@ buildscript {
         circle_indicator_version = "2.1.6"
         gravity_snap_helper_version = "2.2.1"
         lottie_version = "3.7.0"
+        swiperefresh_version = "1.1.0"
     }
 
 

@@ -18,6 +18,7 @@ import cz.mendelu.pef.spatialhub.kiwitask.others.UIUtils
 import cz.mendelu.pef.spatialhub.kiwitask.ui.FlightsAdapter
 import cz.mendelu.pef.spatialhub.kiwitask.ui.TopLocationViewModel
 import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TopLocationsFragment : Fragment() {
@@ -45,18 +46,23 @@ class TopLocationsFragment : Fragment() {
 
         lifecycleScope.launchWhenStarted {
             viewModel.flights.collect { result ->
+
+                if (binding.swipeRefresh.isRefreshing) {
+                    binding.swipeRefresh.isRefreshing = false
+                }
+
                 when (result) {
                     is Result.Empty -> {
                         showContent(false)
                         showLoading(false)
                         showPlaceholder(true)
-                        setPlaceholderContent(R.string.airlines, R.drawable.empty_placeholder)
+                        setPlaceholderContent(R.string.placeholder_text_empty, R.drawable.empty_placeholder)
                     }
                     is Result.Error -> {
                         showContent(false)
                         showLoading(false)
                         showPlaceholder(true)
-                        setPlaceholderContent(R.string.airlines, R.drawable.error_placeholder)
+                        setPlaceholderContent(R.string.placeholder_text_error, R.drawable.error_placeholder)
                     }
                     Result.Loading -> {
                         showContent(false)
@@ -70,7 +76,6 @@ class TopLocationsFragment : Fragment() {
                         flightAdapter.apply {
                             submitList(result.data)
                         }
-                        //Log.d("TopLocationsLog", result.data.toString())
                     }
                 }
             }
@@ -85,6 +90,9 @@ class TopLocationsFragment : Fragment() {
             flightAdapter = FlightsAdapter()
             recyclerView.adapter = flightAdapter.apply {
                 registerAdapterDataObserver(circleIndicator.adapterDataObserver)
+            }
+            swipeRefresh.setOnRefreshListener {
+                viewModel.fetchFlights()
             }
         }
     }
