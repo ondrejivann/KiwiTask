@@ -26,9 +26,8 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(setOf(R.id.splashScreenFragment, R.id.onBoardingFragment, R.id.topLocationsFragment))
 
-
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        //setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
         //setupActionBarWithNavController(navController)
     }
 

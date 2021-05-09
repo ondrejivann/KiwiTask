@@ -20,14 +20,14 @@
             app:ci_drawable_unselected="@drawable/circle_indicator_inactive"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="@dimen/basic_indentation"
+            android:layout_marginBottom="@dimen/large_indentation"
             app:layout_constraintBottom_toTopOf="@id/buttonNext" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/basic_indentation"
+            android:layout_marginBottom="@dimen/large_indentation"
             android:text="next"
             android:textColor="@android:color/white"
             android:textStyle="bold"

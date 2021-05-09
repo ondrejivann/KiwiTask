@@ -6,17 +6,12 @@
         <variable
             name="onBoardingText"
             type="String" />
-
-        <variable
-            name="onBoardingAnimation"
-            type="String" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/basic_indentation">
+        android:padding="@dimen/on_boarding_indentation">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animView"

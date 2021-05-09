@@ -1,5 +1,10 @@
 <resources>
+    <dimen name="very_large_indentation">48dp</dimen>
     <dimen name="large_indentation">24dp</dimen>
     <dimen name="basic_indentation">16dp</dimen>
     <dimen name="half_indentation">8dp</dimen>
+    <dimen name="zero_dimen">0dp</dimen>
+
+    <dimen name="on_boarding_indentation">@dimen/very_large_indentation</dimen>
+    <dimen name="elevation">@dimen/zero_dimen</dimen>
 </resources>
