@@ -1,6 +1,7 @@
 package cz.mendelu.pef.spatialhub.kiwitask.ui
 
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,15 @@ import cz.mendelu.pef.spatialhub.kiwitask.models.Route
 import cz.mendelu.pef.spatialhub.kiwitask.models.Stopover
 import cz.mendelu.pef.spatialhub.kiwitask.others.DateTimeUtils
 import cz.mendelu.pef.spatialhub.kiwitask.others.NumberUtils
+import cz.mendelu.pef.spatialhub.kiwitask.others.replacePunctions
+import java.util.*
 
 class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(FlightDiffCallback) {
+
+    companion object {
+        const val BASIC_IMAGE_URL = "https://images.kiwi.com/photos/600x330/"
+        const val IMAGE_FORMAT = ".jpg"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightViewHolder {
         val itemBinding =
@@ -68,7 +76,12 @@ class FlightsAdapter : ListAdapter<Flight, FlightsAdapter.FlightViewHolder>(Flig
                     airlines = TextUtils.join(", ", airlinesList)
                 }
                 seats = flight.availability?.seats?.toString()
-                imageView.load("https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A") {
+
+                val url = BASIC_IMAGE_URL + flight.destinationCity?.toLowerCase(Locale.ROOT)
+                    ?.replacePunctions() + "_" + flight.countryDestination?.code?.toLowerCase(
+                    Locale.ROOT
+                ) + IMAGE_FORMAT
+                imageView.load(url) {
                     crossfade(true)
                     crossfade(250)
                     scale(Scale.FIT)
