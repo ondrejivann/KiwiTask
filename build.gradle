@@ -19,6 +19,7 @@ buildscript {
         room_version = "2.3.0"
         circle_indicator_version = "2.1.6"
         gravity_snap_helper_version = "2.2.1"
+        lottie_version = "3.7.0"
     }
 
 

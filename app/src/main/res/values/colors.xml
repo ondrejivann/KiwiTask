@@ -15,4 +15,7 @@
     <color name="circleIndicator">@color/gray</color>
 
     <color name="card_overlay">#64000000</color>
+
+    <color name="app_green">#6FCF97</color>
+    <color name="lightBlack">#121212</color>
 </resources>

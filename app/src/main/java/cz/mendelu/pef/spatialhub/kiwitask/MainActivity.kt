@@ -24,14 +24,17 @@ class MainActivity : AppCompatActivity() {
         navHostFragment =
             supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.splashScreenFragment, R.id.onBoardingFragment, R.id.topLocationsFragment))
+
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        setSupportActionBar(binding.toolbar)
-        setupActionBarWithNavController(navController)
+        //setSupportActionBar(binding.toolbar)
+        //setupActionBarWithNavController(navController)
     }
 
+    /*
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+     */
 }

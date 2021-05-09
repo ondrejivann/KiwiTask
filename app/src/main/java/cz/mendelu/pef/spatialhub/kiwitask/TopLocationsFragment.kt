@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import cz.mendelu.pef.spatialhub.kiwitask.databinding.FragmentTopLocationsBinding
 import cz.mendelu.pef.spatialhub.kiwitask.models.Result
+import cz.mendelu.pef.spatialhub.kiwitask.others.UIUtils
 import cz.mendelu.pef.spatialhub.kiwitask.ui.FlightsAdapter
 import cz.mendelu.pef.spatialhub.kiwitask.ui.TopLocationViewModel
 import kotlinx.coroutines.flow.collect
@@ -36,7 +37,7 @@ class TopLocationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        UIUtils.showStatusBar(requireActivity().window)
         setUpViews()
 
         lifecycleScope.launchWhenStarted {

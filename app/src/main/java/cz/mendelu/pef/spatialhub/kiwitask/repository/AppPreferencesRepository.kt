@@ -7,4 +7,6 @@ interface AppPreferencesRepository {
     suspend fun setLastSearchTime(date: Long)
     val currency: Flow<String>
     suspend fun setCurrency(currency: String)
+    val showOnBoarding: Flow<Boolean>
+    suspend fun setShowOnBoarding(show: Boolean)
 }
