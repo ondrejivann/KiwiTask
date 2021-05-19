@@ -14,6 +14,7 @@ import cz.mendelu.pef.spatialhub.kiwitask.models.Flight
     version = 1
 )
 
+// Pro zjednoduseni prevadim do db na stringy, jinak udelat normal db.
 @TypeConverters(
     StringListConverter::class,
     AvailabilityConverter::class,

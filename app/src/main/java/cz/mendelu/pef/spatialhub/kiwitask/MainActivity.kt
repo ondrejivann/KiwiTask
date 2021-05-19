@@ -28,12 +28,5 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         setSupportActionBar(binding.toolbar)
-        //setupActionBarWithNavController(navController)
     }
-
-    /*
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-     */
 }
